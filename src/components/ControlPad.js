@@ -90,12 +90,12 @@ export default function ControlPad(){
         >
             <Stack spacing={1}>
             <Stack direction="row" spacing={1}>
-            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={upPress} onMouseUp={release}> UP </Button>
-            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={dwPress} onMouseUp={release}>DOWN</Button>
+            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={upPress} onMouseUp={release} onTouchStart={upPress} onTouchEnd={release}> UP </Button>
+            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={dwPress} onMouseUp={release} onTouchStart={dwPress} onTouchEnd={release}>DOWN</Button>
             </Stack>
             <Stack direction="row" spacing={1}>
-            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={lePress} onMouseUp={release}>LEFT </Button>
-            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={rePress} onMouseUp={release}>RIGHT</Button>
+            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={lePress} onMouseUp={release} onTouchStart={lePress} onTouchEnd={release}>LEFT </Button>
+            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={rePress} onMouseUp={release} onTouchStart={rePress} onTouchEnd={release}>RIGHT</Button>
             </Stack>
             <Stack direction="row" spacing={1}>
             <Button variant="contained" color="success" style={{width:"80px"}} onClick={speedChange}>{speed}</Button>
