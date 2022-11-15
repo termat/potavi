@@ -8,9 +8,8 @@ import {DrawerOpenControl} from './Dashboard';
 import { parseGeojson } from './DataLoader';
 import {imagePop,imageClose} from './Imagepopup'
 import axios from 'axios';
-///import maplibregl from　'maplibre-gl/dist/maplibre-gl-csp';
-// eslint-disable-next-line import/no-webpack-loader-syntax
-maplibregl.workerClass = require('maplibre-gl/dist/maplibre-gl-csp-worker').default;
+import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker';
+maplibregl.workerClass = maplibreglWorker;
 
 const BASE_URL="https://www.termat.net/";
 const photo_URL="https://www.termat.net/photo/get/bounds/"

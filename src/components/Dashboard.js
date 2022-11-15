@@ -11,7 +11,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Mappanel from './Mappanel';
 import TabLeft from './TabLeft';
 import ControlBar from './ControlBar';
-import ControlPad from './ControlPad';
 import DataTableDialog from './DataTableDialog'
 import HelpDialog from './HelpDialog'
 import Imagepopup from './Imagepopup'
@@ -88,7 +87,6 @@ export default function Dashboard(props) {
         <DrawerHeader />
         <Mappanel page={page}/>
         <ControlBar /> 
-        <ControlPad /> 
       </Main>
       <Imagepopup />
       <DataTableDialog />
