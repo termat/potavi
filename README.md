@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# 自転車の走行記録可視化Webアプリ - PotaVi
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+サイクルコンピュータなどによる自転車の走行記録を可視化するWebアプリの試作です。
 
 ## Available Scripts
 
