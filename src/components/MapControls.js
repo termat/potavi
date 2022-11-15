@@ -2,6 +2,7 @@ import { layerOnOff } from "./Mappanel";
 import { fileRead,frame } from "./DataLoader";
 import {handleDialogOpen,setUpPage} from './DataTableDialog'
 import { handleHelpDialogOpen } from "./HelpDialog";
+import { showPanel } from "./ControlPad";
 
 export class LayerOnOffControl {
 
@@ -118,7 +119,7 @@ export class HelpControl {
   constructor(url,label){
     this.url=url;
     this.label=label;
-}
+  }
 
   onAdd(map) {
     this.map = map;
@@ -127,6 +128,33 @@ export class HelpControl {
     homeButton.innerHTML = '<img src="'+this.url+'" width="24px" aria-hidden="true"></i>';
     homeButton.addEventListener('click', (e) => {
       handleHelpDialogOpen();
+    });
+    this.container = document.createElement('div');
+    this.container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+    this.container.appendChild(homeButton);
+    return this.container;
+  }
+
+  onRemove() {
+    this.container.parentNode.removeChild(this.container);
+    this.map = undefined;
+  }
+}
+
+export class PanelControl {
+
+  constructor(url,label){
+    this.url=url;
+    this.label=label;
+  }
+
+  onAdd(map) {
+    this.map = map;
+    const homeButton = document.createElement('button');
+    homeButton.setAttribute("title",this.label);
+    homeButton.innerHTML = '<img src="'+this.url+'" width="24px" aria-hidden="true"></i>';
+    homeButton.addEventListener('click', (e) => {
+      showPanel();
     });
     this.container = document.createElement('div');
     this.container.className = 'maplibregl-ctrl maplibregl-ctrl-group';

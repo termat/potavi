@@ -3,7 +3,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import maplibregl from 'maplibre-gl';
 import './Mappanel.css';
 import { addVectorLayer,addBldgLayer } from './LayerCreator';
-import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl } from './MapControls';
+import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl } from './MapControls';
 import {DrawerOpenControl} from './Dashboard';
 import { parseGeojson } from './DataLoader';
 import {imagePop,imageClose} from './Imagepopup'
@@ -218,6 +218,7 @@ export default function Mappanel(props) {
         map.current.addControl(new DrawerOpenControl("/potavi/images/toggle.png","Menu"), 'top-left');
         map.current.addControl(new FileReadControl("/potavi/images/open.png","Open"), 'top-left');
         map.current.addControl(new DialogControl("/potavi/images/cycle.png","Data"), 'top-left');
+        map.current.addControl(new PanelControl("/potavi/images/land.png",'View',"ViewPoint"), 'top-right');
         map.current.addControl(new HelpControl("/potavi/images/help.png",'help',"Help"), 'top-right');
         mapObj=map.current;
         mapObj.loadImage(

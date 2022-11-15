@@ -131,7 +131,7 @@ const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
     tiles: ["https://www.termat.net/bldg/{z}/{x}/{y}"],
-    minzoom: 14,
+    minzoom: 15,
     maxzoom: 16,
     attribution: '<a href="https://www.mlit.go.jp/plateau/">国土交通省Project PLATEAU</a>'
   };

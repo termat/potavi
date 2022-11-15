@@ -9,21 +9,11 @@ let spId=0;
 let zoom=14;
 let timerId=0;
 
-export default function ControlPad(){
-    const [state, setState] = useState({hovered:false,downed:false});
-    const [speed,setSp] =useState("Normal")
+export let showPanel;
 
-    const onMouseEnterHandler=()=>{
-        setState({
-          hovered: true
-        })
-      };
-    
-    const onMouseLeaveHandler=()=>{
-        setState({
-          hovered: false
-        })  
-    }
+export default function ControlPad(){
+    const [visible, setVisible] = useState(false);
+    const [speed,setSp] =useState(name[0])
 
     const speedChange=()=>{
         spId=(spId+1)%5;
@@ -40,6 +30,10 @@ export default function ControlPad(){
             setSpeed(0.5);
         }
     }
+
+    showPanel=()=>{
+        setVisible(!visible);
+    };
 
     const zoomChange=()=>{
         zoom=zoom+1;
@@ -80,13 +74,11 @@ export default function ControlPad(){
                 border: "none",
                 position: "absolute",
                 bottom: 100,
-                right:20,
+                right: 20,
                 zindex:255,
                 userSelect:"none",
-                opacity:state.hovered ? 0.8:0.0
+                visibility: visible ? "visible" : "hidden"
             }}
-            onMouseEnter={(e)=>{onMouseEnterHandler(e)}} 
-            onMouseLeave={(e)=>{onMouseLeaveHandler(e)}}
         >
             <Stack spacing={1}>
             <Stack direction="row" spacing={1}>
