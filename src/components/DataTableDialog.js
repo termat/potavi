@@ -91,12 +91,13 @@ export default function DataTableDialog(props) {
   const [colnum,setColnum]= useState(4);
 
   handleDialogOpen = () => {
-    setOpen(true);
-    if(document.body.clientWidth>document.body.clientHeight){
+    const mql1 = window.matchMedia("(orientation: landscape)");
+    if(mql1.matches){
       setColnum(4);
     }else{
       setColnum(2);
     }
+    setOpen(true);
   };
 
   handleDialogClose = () => {
