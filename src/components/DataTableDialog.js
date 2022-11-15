@@ -88,9 +88,15 @@ export default function DataTableDialog(props) {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [itemData, setData] = useState([]);
+  const [colnum,setColnum]= useState(4);
 
   handleDialogOpen = () => {
     setOpen(true);
+    if(document.body.clientWidth>document.body.clientHeight){
+      setColnum(4);
+    }else{
+      setColnum(2);
+    }
   };
 
   handleDialogClose = () => {
@@ -137,7 +143,7 @@ export default function DataTableDialog(props) {
             )}
           />
           <Box textAlign="center">
-          <ImageList cols={4}>
+          <ImageList cols={colnum}>
         {itemData.map((item) => (
           <ImageListItem key={item.id}>
             <img

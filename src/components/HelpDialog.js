@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import Link from '@mui/material/Link';
+import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 
 function Copyright() {
   return (
@@ -22,6 +23,10 @@ function Copyright() {
 }
 
 export let handleHelpDialogOpen;
+
+const img_style = {
+  width: "100%" 
+};
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -43,6 +48,10 @@ export default function DataTableDialog(props) {
       <Dialog fullScreen open={open} onClose={handleDialogClose} TransitionComponent={Transition}>
         <AppBar>
           <Toolbar>
+          <DirectionsBikeIcon />
+          <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', md: 'block' } }}>
+          　Potavi（自転車走行記録の可視化）
+          </Typography>
           <div style={{ flexGrow: 1 }}></div>
           <CloseIcon onClick={handleDialogClose} />
           <Button color="inherit" onClick={handleDialogClose}>
@@ -50,8 +59,8 @@ export default function DataTableDialog(props) {
           </Button>
           </Toolbar>
         </AppBar>
-        <div style={{marginTop:70}}>
-            テスト
+        <div style={{marginTop:60}}>
+          <img src={`${process.env.PUBLIC_URL}/images/back2.jpg`} style={img_style} alt={'top'} />
         </div>
         <br />
         <Copyright />

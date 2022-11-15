@@ -11,9 +11,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Mappanel from './Mappanel';
 import TabLeft from './TabLeft';
 import ControlBar from './ControlBar';
-import DataTableDialog from './DataTableDialog'
-import HelpDialog from './HelpDialog'
-import Imagepopup from './Imagepopup'
+import DataTableDialog from './DataTableDialog';
+import HelpDialog from './HelpDialog';
+import Imagepopup from './Imagepopup';
+import ControlPad from './ControlPad';
 
 const drawerWidth = 240;
 
@@ -87,6 +88,7 @@ export default function Dashboard(props) {
         <DrawerHeader />
         <Mappanel page={page}/>
         <ControlBar /> 
+        <ControlPad />
       </Main>
       <Imagepopup />
       <DataTableDialog />
