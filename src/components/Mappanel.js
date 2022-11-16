@@ -6,7 +6,8 @@ import { addVectorLayer,addBldgLayer } from './LayerCreator';
 import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl } from './MapControls';
 import {DrawerOpenControl} from './Dashboard';
 import { parseGeojson } from './DataLoader';
-import {imagePop,imageClose} from './Imagepopup'
+import {imagePop,imageClose} from './Imagepopup';
+import { getLayerState } from './MenuList';
 import axios from 'axios';
 import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker';
 maplibregl.workerClass = maplibreglWorker;
@@ -139,6 +140,18 @@ export const jumpTo=(data)=>{
     ]);
 };
 
+const initLayer=()=>{
+    const tmp=["bldg","bridge","bldg-lod0","mvt-road","vector-road","vector-rail","vector-water","mvt-pad","dis-land","dis-tsunami"];
+    tmp.forEach(function(id){
+        if(getLayerState(id)){
+            mapObj.setLayoutProperty(id,'visibility','visible');
+        }else{
+            mapObj.setLayoutProperty(id, 'visibility', 'none');
+        }
+    });
+};
+
+
 export const layerOnOff=(id)=>{
     const visibility = mapObj.getLayoutProperty(id,'visibility');
     if (visibility === 'visible') {
@@ -151,6 +164,7 @@ export const layerOnOff=(id)=>{
 export const getMap=()=>{
     return mapObj;
 };
+
 
 export let setBearingVal;
 export let setBearingVal2;
@@ -219,7 +233,7 @@ export default function Mappanel(props) {
         map.current.addControl(new FileReadControl("/potavi/images/open.png","Open"), 'top-left');
         map.current.addControl(new DialogControl("/potavi/images/cycle.png","Data"), 'top-left');
         map.current.addControl(new PanelControl("/potavi/images/land.png",'View',"ViewPoint"), 'top-right');
-        map.current.addControl(new HelpControl("/potavi/images/help.png",'help',"Help"), 'top-right');
+        map.current.addControl(new HelpControl("/potavi/images/help.png",'help',"Help"), 'top-left');
         mapObj=map.current;
         mapObj.loadImage(
             '/potavi/images/camera.png',(error, image) => {
@@ -237,6 +251,7 @@ export default function Mappanel(props) {
             if(props.page){
                 setTimeout(loadData(props.page),1000);
             }
+            initLayer();
         });
         map.current.on('move', () => {
 

@@ -7,6 +7,10 @@ import Slider from '@mui/material/Slider';
 import Divider from '@mui/material/Divider';
 import { getMap } from './Mappanel';
 
+const setState=(id,val)=>{
+    localStorage.setItem(id,val);
+};
+
 export default function LayerControl(props) {
     const [opacity, setOpacty] = useState(props.opacity);
     const [checked, setChecked] = useState(props.checked);
@@ -17,10 +21,12 @@ export default function LayerControl(props) {
         if(e.target.checked){
             props.layerId.forEach(function(elem){
                 map.setLayoutProperty(elem, 'visibility', 'visible');
+                setState(elem,e.target.checked);
              });
         }else{
             props.layerId.forEach(function(elem){
                 map.setLayoutProperty(elem, 'visibility', 'none');
+                setState(elem,e.target.checked);
              });
         }
     }

@@ -127,11 +127,19 @@ export const addVectorLayer=(mapobj)=>{
     }
 };
 
+const agent=()=>{
+    if(navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)){
+        return 15;
+    }else{
+        return 13;
+    }
+}
+
 const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
     tiles: ["https://www.termat.net/bldg/{z}/{x}/{y}"],
-    minzoom: 15,
+    minzoom: agent(),
     maxzoom: 16,
     attribution: '<a href="https://www.mlit.go.jp/plateau/">国土交通省Project PLATEAU</a>'
   };
@@ -140,9 +148,18 @@ const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
     tiles: ["https://www.termat.net/fude/{z}/{x}/{y}"],
-    minzoom: 14,
-    maxzoom: 17,
+    minzoom: agent(),
+    maxzoom: 16,
     attribution: '<a href="https://open.fude.maff.go.jp/">農林水産省筆ポリゴン</a>'
+  };
+
+  const MVT_DIS={
+    type: "vector",
+    glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
+    tiles: ["https://www.termat.net/dis/{z}/{x}/{y}"],
+    minzoom: 13,
+    maxzoom: 16,
+    attribution: '<a href="https://nlftp.mlit.go.jp/ksj/">国土数値情報</a>'
   };
 
 export const addBldgLayer=(mapobj)=>{
@@ -207,4 +224,41 @@ export const addBldgLayer=(mapobj)=>{
             }
         });
     }
+    if (!mapobj.getSource('mvt_dis')){
+        mapobj.addSource("mvt_dis", MVT_DIS);
+        mapobj.addLayer({
+            "id": "dis-land",
+            "type": "fill",
+            "source": "mvt_dis",
+            "source-layer": "LANDSLIDE",
+            "paint": {
+                "fill-color": ["match",["get", "type"],"急傾斜地崩壊","#ff4500","#ffd700"],
+                'fill-opacity': 0.4,
+            }
+        });
+        mapobj.addLayer({
+            "id": "dis-tsunami",
+            "type": "fill",
+            "source": "mvt_dis",
+            "source-layer": "TUNAMI",
+            "paint": {
+                "fill-color": [
+                    'interpolate',
+                    ['linear'],
+                    ["get", "depth"],
+                        0.3,'#a6cee3',
+                        0.5,'#afb9cc',
+                        1,'#c1909f',
+                        2,'#c1909f',
+                        3,'#ca7c88',
+                        4,'#db525b',
+                        5,'#e43e44',
+                        10,'#ed292d',
+                        20,'#f61517',
+                        50,'#ff0000'],
+                    'fill-opacity': 0.5,
+            }
+        });
+    }
+
 };
