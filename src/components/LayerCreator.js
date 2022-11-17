@@ -17,6 +17,20 @@ export const createTile3DLayer=(url)=>{
       return mapboxLayer;
 };
 
+const agent=()=>{
+    var ua = navigator.userAgent;
+    if(ua.match(/(iPhone|iPad|iPod|Android)/i)){
+        return 14;
+    }else{
+        ua=ua.toLowerCase()
+        if((ua.indexOf("macintosh") > -1 && "ontouchend" in document)){
+            return 14;
+        }else{
+            return 13;
+        }
+    }
+}
+
 const VECTOR={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
@@ -132,7 +146,7 @@ const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
     tiles: ["https://www.termat.net/bldg/{z}/{x}/{y}"],
-    minzoom: 13,
+    minzoom: agent(),
     maxzoom: 16,
     attribution: '<a href="https://www.mlit.go.jp/plateau/">国土交通省Project PLATEAU</a>'
   };
@@ -141,7 +155,7 @@ const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
     tiles: ["https://www.termat.net/fude/{z}/{x}/{y}"],
-    minzoom: 13,
+    minzoom: agent(),
     maxzoom: 16,
     attribution: '<a href="https://open.fude.maff.go.jp/">農林水産省筆ポリゴン</a>'
   };
@@ -150,7 +164,7 @@ const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
     tiles: ["https://www.termat.net/dis/{z}/{x}/{y}"],
-    minzoom: 13,
+    minzoom: agent(),
     maxzoom: 16,
     attribution: '<a href="https://nlftp.mlit.go.jp/ksj/">国土数値情報</a>'
   };
