@@ -168,11 +168,11 @@ export const getMap=()=>{
 const agent=()=>{
     var ua = navigator.userAgent;
     if(ua.match(/(iPhone|iPad|iPod|Android)/i)){
-        return 50;
+        return 45;
     }else{
         ua=ua.toLowerCase()
         if((ua.indexOf("macintosh") > -1 && "ontouchend" in document)){
-            return 50;
+            return 45;
         }else{
             return 70;
         }
