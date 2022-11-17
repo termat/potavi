@@ -15,10 +15,6 @@ let start=0;
 let mul=1.0;
 export let running=false;
 let runAni;
-let isTrace=false;
-let prePos;
-let preAng;
-let amt=0.05;
 
 export const setSpeed=(val)=>{
     mul=val;
@@ -69,7 +65,7 @@ export const frame=(time)=>{
         routeDistance * phase
     ).geometry.coordinates;
     currentMap.setCenter(alongRoute);
-    let point = {
+    const point = {
         'type': 'FeatureCollection',
         'features': [{
             'type': 'Feature',
@@ -86,17 +82,6 @@ export const frame=(time)=>{
         runAni=requestAnimationFrame(frame);
     }else{
         cancelAnimationFrame(runAni);
-    }
-    if(isTrace){
-        if(!preAng)preAng=currentMap.getBearing();
-        if(prePos){
-            const vec=[alongRoute[0]-prePos[0],alongRoute[1]-prePos[1]]
-            const ang=180-Math.atan2(vec[1],vec[0])*360/Math.PI;
-            const val=(1 - amt) * preAng + amt * ang;
-            setBearingVal2(val);
-            preAng=ang;
-        }
-        prePos=[alongRoute[0],alongRoute[1]];
     }
 };
 
