@@ -166,10 +166,16 @@ export const getMap=()=>{
 };
 
 const agent=()=>{
-    if(navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)){
+    var ua = navigator.userAgent;
+    if(ua.match(/(iPhone|iPad|iPod|Android)/i)){
         return 50;
     }else{
-        return 70;
+        ua=ua.toLowerCase()
+        if((ua.indexOf("macintosh") > -1 && "ontouchend" in document)){
+            return 50;
+        }else{
+            return 70;
+        }
     }
 }
 
