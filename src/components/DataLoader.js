@@ -64,12 +64,11 @@ export const frame=(time)=>{
         turf.lineString(targetRoute),
         routeDistance * phase
     ).geometry.coordinates;
-    let src=currentMap.getSource('point');
     const point = {
         'type': 'Point',
         'coordinates': alongRoute
     };
-    if(src)src.setData(point);
+    currentMap.getSource('point').setData(point);
     currentMap.setCenter(alongRoute);
     if(running){
         runAni=requestAnimationFrame(frame);
