@@ -175,7 +175,7 @@ const isPC=()=>{
 };
 
 const agent=()=>{
-    if(isPC){
+    if(isPC()){
         return 70;
     }else{
         return 50;
