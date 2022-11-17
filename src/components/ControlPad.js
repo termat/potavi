@@ -90,8 +90,8 @@ export default function ControlPad(){
             <Stack direction="row" spacing={1}>
             <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={speedChangeUp}>＋</Button>
             <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={speedChangeDn}>－</Button>
-            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={zoomChangeUp}>＋</Button>
-            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={zoomChangeDn}>－</Button>
+            <Button variant="contained" color="secondary" style={{width:"35px",minWidth:"35px"}} onClick={zoomChangeUp}>＋</Button>
+            <Button variant="contained" color="secondary" style={{width:"35px",minWidth:"35px"}} onClick={zoomChangeDn}>－</Button>
             </Stack>
             </Stack>
         </div>
