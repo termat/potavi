@@ -66,15 +66,8 @@ export const frame=(time)=>{
     ).geometry.coordinates;
     let src=currentMap.getSource('point');
     const point = {
-        'type': 'FeatureCollection',
-        'features': [{
-            'type': 'Feature',
-            'properties': {},
-            'geometry': {
-                'type': 'Point',
-                'coordinates': alongRoute
-            }
-        }]
+        'type': 'Point',
+        'coordinates': alongRoute
     };
     if(src)src.setData(point);
     currentMap.setCenter(alongRoute);
@@ -177,15 +170,8 @@ const setGeojsonLayer=(map,targetRoute)=>{
             }
         });
         let point = {
-            'type': 'FeatureCollection',
-            'features': [{
-                'type': 'Feature',
-                'properties': {},
-                'geometry': {
-                    'type': 'Point',
-                    'coordinates': targetRoute[0]
-                }
-            }]
+            'type': 'Point',
+            'coordinates': targetRoute[0]
         };
         map.addSource('point', {
             'type': 'geojson',
