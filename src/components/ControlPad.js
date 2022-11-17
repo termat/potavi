@@ -5,39 +5,37 @@ import { setPitchVal,setBearingVal,setZoomVal} from './Mappanel';
 import {setSpeed} from './DataLoader';
 
 const name=["Normal","Fast","Fastest","Slowest","Slow"];
-let spId=0;
-let zoom=14;
+let spId=3;
+let zoom=12;
 let timerId=0;
 
 export let showPanel;
+const srate=[0.125,0.25,0.5,1.0,2.0,3.0,4.0];
 
 export default function ControlPad(){
     const [visible, setVisible] = useState(false);
-    const [speed,setSp] =useState(name[0])
 
-    const speedChange=()=>{
-        spId=(spId+1)%5;
-        setSp(name[spId]);
-        if(spId===0){
-            setSpeed(1.0);
-        }else if(spId===1){
-            setSpeed(2.0);
-        }else if(spId===2){
-            setSpeed(3.0);
-        }else　if(spId===3){
-            setSpeed(0.25);
-        }else{
-            setSpeed(0.5);
-        }
+    const speedChangeUp=()=>{
+        spId=Math.min(spId+1,6);
+        setSpeed(srate[spId]);
+    }
+
+    const speedChangeDn=()=>{
+        spId=Math.max(spId-1,0);
+        setSpeed(srate[spId]);
     }
 
     showPanel=()=>{
         setVisible(!visible);
     };
 
-    const zoomChange=()=>{
-        zoom=zoom+1;
-        if(zoom>20)zoom=14;
+    const zoomChangeUp=()=>{
+        zoom=Math.min(zoom+1,20)
+        setZoomVal(zoom);
+    };
+
+    const zoomChangeDn=()=>{
+        zoom=Math.max(zoom-1,12)
         setZoomVal(zoom);
     };
 
@@ -90,8 +88,10 @@ export default function ControlPad(){
             <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={rePress} onMouseUp={release} onTouchStart={rePress} onTouchEnd={release}>RIGHT</Button>
             </Stack>
             <Stack direction="row" spacing={1}>
-            <Button variant="contained" color="success" style={{width:"80px"}} onClick={speedChange}>{speed}</Button>
-            <Button variant="contained" color="success" style={{width:"80px"}} onClick={zoomChange}>VIEW</Button>
+            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={speedChangeUp}>＋</Button>
+            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={speedChangeDn}>－</Button>
+            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={zoomChangeUp}>＋</Button>
+            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={zoomChangeDn}>－</Button>
             </Stack>
             </Stack>
         </div>
