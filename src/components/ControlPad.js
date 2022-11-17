@@ -4,7 +4,6 @@ import Stack from '@mui/material/Stack';
 import { setPitchVal,setBearingVal,setZoomVal} from './Mappanel';
 import {setSpeed} from './DataLoader';
 
-const name=["Normal","Fast","Fastest","Slowest","Slow"];
 let spId=3;
 let zoom=12;
 let timerId=0;

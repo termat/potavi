@@ -1,6 +1,6 @@
 import * as turf from '@turf/turf';
 import {setSlider,endRunning} from './ControlBar';
-import { addPhoto, setBearingVal2 } from './Mappanel';
+import { addPhoto} from './Mappanel';
 
 let gpxParser = require('gpxparser');
 let tcxParse = require('tcx');
