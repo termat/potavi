@@ -127,19 +127,12 @@ export const addVectorLayer=(mapobj)=>{
     }
 };
 
-const agent=()=>{
-    if(navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)){
-        return 15;
-    }else{
-        return 13;
-    }
-}
 
 const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
     tiles: ["https://www.termat.net/bldg/{z}/{x}/{y}"],
-    minzoom: agent(),
+    minzoom: 13,
     maxzoom: 16,
     attribution: '<a href="https://www.mlit.go.jp/plateau/">国土交通省Project PLATEAU</a>'
   };
@@ -148,7 +141,7 @@ const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
     tiles: ["https://www.termat.net/fude/{z}/{x}/{y}"],
-    minzoom: agent(),
+    minzoom: 13,
     maxzoom: 16,
     attribution: '<a href="https://open.fude.maff.go.jp/">農林水産省筆ポリゴン</a>'
   };

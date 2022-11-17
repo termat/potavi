@@ -165,6 +165,13 @@ export const getMap=()=>{
     return mapObj;
 };
 
+const agent=()=>{
+    if(navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)){
+        return 50;
+    }else{
+        return 70;
+    }
+}
 
 export let setBearingVal;
 export let setBearingVal2;
@@ -210,7 +217,7 @@ export default function Mappanel(props) {
             pitch:pitch,
             bearing:bearing,
             hash:true,
-            maxPitch:70,
+            maxPitch:agent(),
             interactive: true,
             localIdeographFontFamily: false,
         });
