@@ -20,11 +20,11 @@ export const createTile3DLayer=(url)=>{
 const agent=()=>{
     var ua = navigator.userAgent;
     if(ua.match(/(iPhone|iPad|iPod|Android)/i)){
-        return 14;
+        return 15;
     }else{
         ua=ua.toLowerCase()
         if((ua.indexOf("macintosh") > -1 && "ontouchend" in document)){
-            return 14;
+            return 15;
         }else{
             return 13;
         }
