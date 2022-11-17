@@ -64,7 +64,7 @@ export const frame=(time)=>{
         turf.lineString(targetRoute),
         routeDistance * phase
     ).geometry.coordinates;
-    currentMap.setCenter(alongRoute);
+    let src=currentMap.getSource('point');
     const point = {
         'type': 'FeatureCollection',
         'features': [{
@@ -76,8 +76,8 @@ export const frame=(time)=>{
             }
         }]
     };
-    let src=currentMap.getSource('point');
     if(src)src.setData(point);
+    currentMap.setCenter(alongRoute);
     if(running){
         runAni=requestAnimationFrame(frame);
     }else{
