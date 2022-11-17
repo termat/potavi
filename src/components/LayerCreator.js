@@ -127,7 +127,6 @@ export const addVectorLayer=(mapobj)=>{
     }
 };
 
-
 const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
