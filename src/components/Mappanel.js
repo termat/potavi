@@ -165,20 +165,11 @@ export const getMap=()=>{
     return mapObj;
 };
 
-const isPC=()=>{
-    var ua = navigator.userAgent;
-    if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
-        return false;
-    }else{
-        return true;
-    }
-};
-
 const agent=()=>{
-    if(isPC()){
-        return 70;
-    }else{
+    if(navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)){
         return 50;
+    }else{
+        return 70;
     }
 }
 
