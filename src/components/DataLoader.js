@@ -1,6 +1,7 @@
 import * as turf from '@turf/turf';
 import {setSlider,endRunning} from './ControlBar';
 import { addPhoto} from './Mappanel';
+import {getMemory} from './TabLeft';
 
 let gpxParser = require('gpxparser');
 let tcxParse = require('tcx');
@@ -15,6 +16,7 @@ let start=0;
 let mul=1.0;
 export let running=false;
 let runAni;
+export let memoryMode=getMemory();
 
 export const setSpeed=(val)=>{
     mul=val;
@@ -43,6 +45,7 @@ export const stop=()=>{
 
 let fps = 1000 / 24;
 let prev;
+let counter=0;
 
 export const frame=(time)=>{
     if (!start){
@@ -59,7 +62,9 @@ export const frame=(time)=>{
             prev=start;
         }
     }
-    while(Date.now()-prev<fps){}
+    let lp;
+    while((lp=Date.now())-prev<fps){}
+    prev=lp;
     if (phase >= 1) {
         setTimeout(function () {
             running=false;
@@ -75,7 +80,11 @@ export const frame=(time)=>{
         'type': 'Point',
         'coordinates': alongRoute
     };
-    currentMap.getSource('point').setData(point);
+    if(memoryMode){
+        if((counter=counter+1)%24==0)currentMap.getSource('point').setData(point);
+    }else{
+        currentMap.getSource('point').setData(point);
+    }
     currentMap.setCenter(alongRoute);
     if(running){
         runAni=requestAnimationFrame(frame);

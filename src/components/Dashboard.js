@@ -16,7 +16,7 @@ import HelpDialog from './HelpDialog';
 import Imagepopup from './Imagepopup';
 import ControlPad from './ControlPad';
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
