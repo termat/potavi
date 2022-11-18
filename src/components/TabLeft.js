@@ -12,6 +12,7 @@ import Geocoder from './Geocoder';
 import Tabs from '@mui/material/Tabs';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { memoryMode } from './DataLoader';
 
 const setMemory=(val)=>{
     localStorage.setItem("mem",val);
@@ -34,6 +35,7 @@ export default function TabLeft() {
   const handleSmoothChange = (event, newValue) => {
     setState(newValue);
     setMemory(newValue);
+    memoryMode =newValue;
   };
 
   return (
