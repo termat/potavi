@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { setPitchVal,setBearingVal,setZoomVal} from './Mappanel';
+import { setPitchVal,setBearingVal,setZoomVal,getMap} from './Mappanel';
 import {setSpeed} from './DataLoader';
 
 let spId=3;
-let zoom=12;
+let zoom;
 let timerId=0;
 
 export let showPanel;
@@ -29,12 +29,14 @@ export default function ControlPad(){
     };
 
     const zoomChangeUp=()=>{
+        zoom=getMap().getZoom();
         zoom=Math.min(zoom+1,20)
         setZoomVal(zoom);
     };
 
     const zoomChangeDn=()=>{
-        zoom=Math.max(zoom-1,12)
+        zoom=getMap().getZoom();
+        zoom=Math.max(zoom-1,13)
         setZoomVal(zoom);
     };
 
@@ -79,8 +81,8 @@ export default function ControlPad(){
         >
             <Stack spacing={1}>
             <Stack direction="row" spacing={1}>
-            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={upPress} onMouseUp={release} onTouchStart={upPress} onTouchEnd={release}> UP </Button>
-            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={dwPress} onMouseUp={release} onTouchStart={dwPress} onTouchEnd={release}>DOWN</Button>
+            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={dwPress} onMouseUp={release} onTouchStart={dwPress} onTouchEnd={release}> UP </Button>
+            <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={upPress} onMouseUp={release} onTouchStart={upPress} onTouchEnd={release}>DOWN</Button>
             </Stack>
             <Stack direction="row" spacing={1}>
             <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={lePress} onMouseUp={release} onTouchStart={lePress} onTouchEnd={release}>LEFT </Button>

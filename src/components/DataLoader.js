@@ -41,18 +41,25 @@ export const stop=()=>{
     }
 };
 
+let fps = 1000 / 24;
+let prev;
+
 export const frame=(time)=>{
     if (!start){
         start = time;
+        prev=start;
     }else{
         if (typeof time !== "undefined") {
             let dd=time-start;
             start=time;
+            prev=start;
             phase=phase+speed*dd*mul*0.5;
         }else{
             start=Date.now();
+            prev=start;
         }
     }
+    while(Date.now()-prev<fps){}
     if (phase >= 1) {
         setTimeout(function () {
             running=false;
