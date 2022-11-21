@@ -82,7 +82,7 @@ const jumpData=(p)=>{
 }
 
 const clip=(p)=>{
-  const url=SITE_URL+"potavi/"+p;
+  const url=SITE_URL+"potavi/?p="+p;
   if (navigator.clipboard) {
     return navigator.clipboard.writeText(url).then(function () {
       alert("URLをClipboardに転送しました。");

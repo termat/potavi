@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useParams } from "react-router-dom";
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -50,7 +49,6 @@ let handleDrawerOpen;
 export default function Dashboard(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { page } = useParams();
 
   handleDrawerOpen = () => {
     setOpen(true);
@@ -86,7 +84,7 @@ export default function Dashboard(props) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Mappanel page={page}/>
+        <Mappanel page={props.page}/>
         <ControlBar /> 
         <ControlPad />
       </Main>

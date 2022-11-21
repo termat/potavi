@@ -4,7 +4,13 @@ import LayerControl from './LayerControl';
 
 export const getLayerState=(id)=>{
     const val=localStorage.getItem(id);
-    if(!val)return true;
+    if(!val){
+        if(id.indexOf("dis")>=0){
+            return false;
+        }else{
+            return true;
+        }
+    }
     return JSON.parse(val);
 };
 

@@ -1,5 +1,3 @@
-//import 'maplibre-gl/dist/maplibre-gl.css';
-//import maplibregl from 'maplibre-gl';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {Tiles3DLoader} from '@loaders.gl/3d-tiles';
 import {Tile3DLayer} from '@deck.gl/geo-layers';
@@ -129,18 +127,6 @@ export const addVectorLayer=(mapobj)=>{
     }
 };
 
-/*
-const mypop={
-    backgroundColor: black,
-    color : white,
-    opacity : 0.7
-};
-
-const popup = new mapblibregl.Popup({
-    style: {mypop},
-    closeButton: false,
-    closeOnClick: false });
-*/
 const MVT_PLAT={
     type: "vector",
     glyphs: "https://maps.gsi.go.jp/xyz/noto-jp/{fontstack}/{range}.pbf",
@@ -262,7 +248,7 @@ export const addBldgLayer=(mapobj)=>{
                         10,'#f99d59',
                         20,'#e85b3b',
                         50,'#d7191c'],
-                    'fill-opacity': 0.5,
+                    'fill-opacity': 0.9,
             }
         });
     }

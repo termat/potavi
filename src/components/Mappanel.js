@@ -3,11 +3,12 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import maplibregl from 'maplibre-gl';
 import './Mappanel.css';
 import { addVectorLayer,addBldgLayer } from './LayerCreator';
-import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl } from './MapControls';
+import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl,HomeControl } from './MapControls';
 import {DrawerOpenControl} from './Dashboard';
 import { parseGeojson } from './DataLoader';
 import {imagePop,imageClose} from './Imagepopup';
 import { getLayerState } from './MenuList';
+import { getNote } from './TabLeft';
 import axios from 'axios';
 import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker';
 maplibregl.workerClass = maplibreglWorker;
@@ -182,6 +183,10 @@ export let setBearingVal;
 export let setBearingVal2;
 export let setPitchVal;
 export let setZoomVal;
+let note=getNote();
+export let setNoteVal=(v)=>{
+    note=v;
+}
 
 export default function Mappanel(props) {
     const mapContainer = useRef(null);
@@ -242,6 +247,7 @@ export default function Mappanel(props) {
         map.current.addControl(new LayerOnOffControl("/potavi/images/label01.png","map-label","Place name"), 'top-right');
         map.current.addControl(new LayerOnOffControl("/potavi/images/hill01.png",'hills',"Hillshade"), 'top-right');
         map.current.addControl(new DrawerOpenControl("/potavi/images/toggle.png","Menu"), 'top-left');
+        map.current.addControl(new HomeControl("/potavi/images/home.png","Menu"), 'top-left');
         map.current.addControl(new FileReadControl("/potavi/images/open.png","Open"), 'top-left');
         map.current.addControl(new DialogControl("/potavi/images/cycle.png","Data"), 'top-left');
         map.current.addControl(new PanelControl("/potavi/images/land.png",'View',"ViewPoint"), 'top-right');
@@ -267,6 +273,35 @@ export default function Mappanel(props) {
         });
         map.current.on('move', () => {
 
+        });
+        const datapop = new maplibregl.Popup({
+            className:"mypop",
+            closeButton: false,
+            closeOnClick: false });
+
+        map.current.on('mousemove', (e) =>{
+            if(!note){
+                datapop.remove();
+                return;
+            }
+            const fe = map.current.queryRenderedFeatures(e.point);
+            if (!fe.length) {
+                datapop.remove();
+            }else{
+                 if(fe[0].properties["class"]){
+                    datapop.setLngLat(e.lngLat)
+                    .setHTML('<b>'+fe[0].properties["class"]+'</b>').addTo(map.current);
+                }else if(fe[0].properties["type"]){
+                    datapop.setLngLat(e.lngLat)
+                    .setHTML('<b>'+fe[0].properties["type"]+'</b>').addTo(map.current);
+                }else if(fe[0].properties["depth"]){
+                    datapop.setLngLat(e.lngLat)
+                    // eslint-disable-next-line
+                    .setHTML("<b>浸水"+fe[0].properties["depth"]+"m未満"+"</b>").addTo(map.current);
+                }else{
+                    datapop.remove();
+                }
+            }
         });
     });
 
@@ -299,7 +334,7 @@ const showPop=(e)=>{
     const close=()=>{
         pop.remove();
     };
-    setTimeout(close,1500);
+    setTimeout(close,2000);
 };
 
 export const addPhoto=(map,xmin,xmax,ymin,ymax)=>{
