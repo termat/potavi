@@ -8,7 +8,6 @@ import {DrawerOpenControl} from './Dashboard';
 import { parseGeojson } from './DataLoader';
 import {imagePop,imageClose} from './Imagepopup';
 import { getLayerState } from './MenuList';
-import { getNote } from './TabLeft';
 import axios from 'axios';
 import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker';
 maplibregl.workerClass = maplibreglWorker;
@@ -183,10 +182,6 @@ export let setBearingVal;
 export let setBearingVal2;
 export let setPitchVal;
 export let setZoomVal;
-let note=getNote();
-export let setNoteVal=(v)=>{
-    note=v;
-}
 
 export default function Mappanel(props) {
     const mapContainer = useRef(null);
@@ -273,35 +268,6 @@ export default function Mappanel(props) {
         });
         map.current.on('move', () => {
 
-        });
-        const datapop = new maplibregl.Popup({
-            className:"mypop",
-            closeButton: false,
-            closeOnClick: false });
-
-        map.current.on('mousemove', (e) =>{
-            if(!note){
-                datapop.remove();
-                return;
-            }
-            const fe = map.current.queryRenderedFeatures(e.point);
-            if (!fe.length) {
-                datapop.remove();
-            }else{
-                 if(fe[0].properties["class"]){
-                    datapop.setLngLat(e.lngLat)
-                    .setHTML('<b>'+fe[0].properties["class"]+'</b>').addTo(map.current);
-                }else if(fe[0].properties["type"]){
-                    datapop.setLngLat(e.lngLat)
-                    .setHTML('<b>'+fe[0].properties["type"]+'</b>').addTo(map.current);
-                }else if(fe[0].properties["depth"]){
-                    datapop.setLngLat(e.lngLat)
-                    // eslint-disable-next-line
-                    .setHTML("<b>浸水"+fe[0].properties["depth"]+"m未満"+"</b>").addTo(map.current);
-                }else{
-                    datapop.remove();
-                }
-            }
         });
     });
 

@@ -12,7 +12,7 @@ export let targetRoute;
 let routeDistance;
 let speed;
 let phase=0;
-let start=0;
+export let start=0;
 let mul=1.0;
 export let running=false;
 let runAni;
@@ -51,6 +51,9 @@ export const frame=(time)=>{
     if (!start){
         start = time;
         prev=start;
+        if(currentMap.getZoom()<=13){
+            currentMap.setZoom(15);
+        }
     }else{
         if (typeof time !== "undefined") {
             let dd=time-start;

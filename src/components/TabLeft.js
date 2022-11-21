@@ -14,7 +14,6 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 // eslint-disable-next-line
 import { memoryMode } from './DataLoader';
-import { setNoteVal } from './Mappanel';
 
 const recMemory=(val)=>{
     localStorage.setItem("mem",val);
@@ -26,20 +25,9 @@ export const getMemory=()=>{
   return JSON.parse(val);
 };
 
-const recNote=(val)=>{
-  localStorage.setItem("note",val);
-};
-
-export const getNote=()=>{
-  const val=localStorage.getItem("note");
-  if(!val)return false;
-  return JSON.parse(val);
-};
-
 export default function TabLeft() {
   const [value, setValue] = React.useState('1');
   const [state, setState] = React.useState(getMemory());
-  const [note, setNote] = React.useState(getNote());
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -49,12 +37,6 @@ export default function TabLeft() {
     setState(newValue);
     recMemory(newValue);
      memoryMode =newValue;
-  };
-
-  const handleNoteChange = (event, newValue) => {
-    setNote(newValue);
-    recNote(newValue);
-    setNoteVal(newValue);
   };
 
   return (
@@ -86,12 +68,6 @@ export default function TabLeft() {
               <Checkbox checked={state} onChange={handleSmoothChange} name="gilad" />
             }
             label="省メモリ"
-          />
-        <FormControlLabel
-            control={
-              <Checkbox checked={note} onChange={handleNoteChange} name="note" />
-            }
-            label="ノート表示"
           />
         </div>
       </TabPanel>
