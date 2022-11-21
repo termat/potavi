@@ -269,6 +269,7 @@ export default function Mappanel(props) {
         map.current.on('move', () => {
 
         });
+
     });
 
     return (
