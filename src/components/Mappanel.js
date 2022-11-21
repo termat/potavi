@@ -372,7 +372,7 @@ const noteListener=(e)=>{
         }else if(fe[0].properties["depth"]){
             datapop.setLngLat(e.lngLat)
             // eslint-disable-next-line
-            .setHTML("<b>浸水"+fe[0].properties["depth"]+"m未満"+"</b>").addTo(mapObj);
+            .setHTML("<b>津波浸水"+fe[0].properties["depth"]+"m未満"+"</b>").addTo(mapObj);
         }else{
             datapop.remove();
         }
