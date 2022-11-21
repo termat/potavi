@@ -7,6 +7,7 @@ let gpxParser = require('gpxparser');
 let tcxParse = require('tcx');
 var DOMParser = require('xmldom').DOMParser;
 
+
 let currentMap;
 export let targetRoute;
 let routeDistance;

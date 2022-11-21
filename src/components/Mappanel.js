@@ -254,6 +254,7 @@ export default function Mappanel(props) {
                 mapObj.addImage('custom-marker', image);
             }
         );
+        setNote();
     });
  
     useEffect(() => {
@@ -344,3 +345,37 @@ export const addPhoto=(map,xmin,xmax,ymin,ymax)=>{
         map.on('mouseenter', 'photoId', function(e){showPop(e);});
     });
 };
+
+export const setNote=()=>{
+    mapObj.on("mousemove",noteListener);
+};
+
+export const removeNote=()=>{
+    mapObj.off("mousemove",noteListener);
+};
+  
+const datapop = new maplibregl.Popup({
+    closeButton: false,
+    closeOnClick: false });
+  
+const noteListener=(e)=>{
+    const fe = mapObj.queryRenderedFeatures(e.point);
+    if (!fe.length) {
+        datapop.remove();
+    }else{
+         if(fe[0].properties["class"]){
+            datapop.setLngLat(e.lngLat)
+            .setHTML('<b>'+fe[0].properties["class"]+'</b>').addTo(mapObj);
+        }else if(fe[0].properties["type"]){
+            datapop.setLngLat(e.lngLat)
+            .setHTML('<b>'+fe[0].properties["type"]+'</b>').addTo(mapObj);
+        }else if(fe[0].properties["depth"]){
+            datapop.setLngLat(e.lngLat)
+            // eslint-disable-next-line
+            .setHTML("<b>浸水"+fe[0].properties["depth"]+"m未満"+"</b>").addTo(mapObj);
+        }else{
+            datapop.remove();
+        }
+    }
+  };
+  

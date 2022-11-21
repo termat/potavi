@@ -3,6 +3,7 @@ import ListItem from '@mui/material/ListItem';
 import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
 import {targetRoute,running,setPhase,run,stop,setSpeed} from './DataLoader';
+import { setNote,removeNote } from './Mappanel';
 
 export let setSlider;
 export let endRunning;
@@ -33,9 +34,11 @@ export default class ControlBar extends Component {
             if(targetRoute){
                 if(this.state.play_state==="開始"){
                     this.setState({play_state: "停止"});
+                    removeNote();
                     run();
                 }else{
                     this.setState({play_state: "開始"});
+                    setNote();
                     stop();
                 }
             }
