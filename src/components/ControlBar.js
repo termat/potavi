@@ -69,12 +69,13 @@ export default class ControlBar extends Component {
                     bottom: 35,
                     left: "2%",
                     zindex:255,
-                    opacity:this.state.hovered ? 1:0.0
+                    opacity:1.0
+//                    opacity:this.state.hovered ? 1:0.0
                 }
             }
-            onMouseEnter={()=>{this.onMouseEnterHandler()}} 
-            onMouseLeave={()=>{this.onMouseLeaveHandler()}}
-            onTouchStart={()=>{this.onMouseEnterHandler()}} 
+//            onMouseEnter={()=>{this.onMouseEnterHandler()}} 
+//            onMouseLeave={()=>{this.onMouseLeaveHandler()}}
+//            onTouchStart={()=>{this.onMouseEnterHandler()}} 
         >
         <ListItem>
         <Button variant="contained" color="primary" style={{marginRight:"20px"}} onClick={setRunning}>{this.state.play_state}</Button>

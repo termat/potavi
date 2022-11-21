@@ -81,6 +81,7 @@ export const frame=(time)=>{
         'coordinates': alongRoute
     };
     if(memoryMode){
+        // eslint-disable-next-line 
         if((counter=counter+1)%24==0)currentMap.getSource('point').setData(point);
     }else{
         currentMap.getSource('point').setData(point);

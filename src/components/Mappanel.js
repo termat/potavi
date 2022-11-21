@@ -151,7 +151,6 @@ const initLayer=()=>{
     });
 };
 
-
 export const layerOnOff=(id)=>{
     const visibility = mapObj.getLayoutProperty(id,'visibility');
     if (visibility === 'visible') {
@@ -293,10 +292,14 @@ const showPop=(e)=>{
     divElement.appendChild(pElement);
     divElement.appendChild(imgElement);
     imageClose();
-    new maplibregl.Popup()
+    let pop=new maplibregl.Popup({ closeOnClick: false })
     .setLngLat(ll)
     .setDOMContent(divElement)
     .addTo(mapObj);
+    const close=()=>{
+        pop.remove();
+    };
+    setTimeout(close,1500);
 };
 
 export const addPhoto=(map,xmin,xmax,ymin,ymax)=>{

@@ -18,6 +18,8 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import { loadData } from './Mappanel';
+import { stop } from './DataLoader';
+import { endRunning } from './ControlBar';
 import axios from 'axios';
 
 const BASE_URL="https://www.termat.net/";
@@ -70,6 +72,11 @@ setUpPage=()=>{
 };
 
 const jumpData=(p)=>{
+  const tmp=()=>{
+    stop();
+    endRunning();
+  };
+  setTimeout(tmp,10)
   handleDialogClose();
   setTimeout(loadData(p),500);
 }
