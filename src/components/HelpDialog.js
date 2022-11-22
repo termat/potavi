@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import Link from '@mui/material/Link';
+import { Box } from '@mui/material';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 
 function Copyright() {
@@ -61,6 +62,14 @@ export default function DataTableDialog(props) {
         </AppBar>
         <div style={{marginTop:60}}>
           <img src={`${process.env.PUBLIC_URL}/images/back2.jpg`} style={img_style} alt={'top'} />
+          <Box textAlign="center">
+          <h1>Potavi ： ポタリングした地域を3D地図で俯瞰するWebアプリです。</h1>
+          <p style={{fontSize: "20px"}}>自転車走行記録（GPSログ）を可視化し、ポタリング（自転車散歩）した地域を俯瞰して楽しむWebアプリです。<br />
+            実際に走った地域を俯瞰して振り返ることで新たな発見を促します。<br />
+            また、サイクリングルートや地域の紹介に活用することで、サイクルツーリズムを推進します。<br />
+            <Button variant="contained" style={{margin:"10px"}} size="large" onClick={handleDialogClose}>　開　始　</Button>
+            </p>
+          </Box>
         </div>
         <br />
         <Copyright />
