@@ -292,6 +292,16 @@ export default function Mappanel(props) {
                 marker.on("click",()=>{});
             }
         });
+        map.current.on("taphold", (e)=>{
+            const marker = new customMarker().setLngLat(e.lngLat);
+            const p=marker.getLngLat();
+            if(!list_point.has(p.lat+","+p.lng)){
+                list_point.add(p.lat+","+p.lng);
+                list_marker.add(marker);
+                marker.addTo(mapObj);
+                marker.on("click",()=>{});
+            }
+        });
     });
 
     return (
