@@ -14,6 +14,7 @@ import DataTableDialog from './DataTableDialog';
 import HelpDialog from './HelpDialog';
 import Imagepopup from './Imagepopup';
 import ControlPad from './ControlPad';
+import AlertDialog from './AlertDialog';
 
 const drawerWidth = 250;
 
@@ -91,6 +92,7 @@ export default function Dashboard(props) {
       <Imagepopup />
       <DataTableDialog />
       <HelpDialog />
+      <AlertDialog />
     </Box>
   );
 }

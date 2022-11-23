@@ -8,6 +8,7 @@ import {DrawerOpenControl} from './Dashboard';
 import { parseGeojson } from './DataLoader';
 import {imagePop,imageClose} from './Imagepopup';
 import { getLayerState } from './MenuList';
+import { handleAleartMessage,handleAleartOpen } from './AlertDialog';
 import axios from 'axios';
 import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker';
 maplibregl.workerClass = maplibreglWorker;
@@ -21,19 +22,39 @@ const search_URL="https://www.termat.net/route/"
 export const loadData=(p)=>{
     clearMarker();
     const url=BASE_URL+"trip/route/"+p;
-    axios.get(url)
-    .then(function (res) {
-        parseGeojson(mapObj,JSON.stringify(res.data));
-    })
+    (async() => {
+        let apiRes = null;
+        try {
+          apiRes = await axios.get(url)
+          .then(function (res) {
+            parseGeojson(mapObj,JSON.stringify(res.data));
+        });
+        } catch (err) {
+            handleAleartMessage("例外が発生しました。");
+            handleAleartOpen();
+        } finally {
+          console.log(apiRes);
+        }
+    })();
 };
 
 export const searchData=(p)=>{
     clearMarker();
     const url=search_URL+p;
-    axios.get(url)
-    .then(function (res) {
-        parseGeojson(mapObj,JSON.stringify(res.data));
-    })
+    (async() => {
+        let apiRes = null;
+        try {
+          apiRes = await axios.get(url)
+          .then(function (res) {
+            parseGeojson(mapObj,JSON.stringify(res.data));
+        });
+        } catch (err) {
+            handleAleartMessage("本機能は東京23区内のみ有効です。");
+            handleAleartOpen();
+        } finally {
+          console.log(apiRes);
+        }
+      })();
 };
 
 const TILES={
