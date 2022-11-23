@@ -30,10 +30,9 @@ export const loadData=(p)=>{
             parseGeojson(mapObj,JSON.stringify(res.data));
         });
         } catch (err) {
+        } finally {
             handleAleartMessage("例外が発生しました。");
             handleAleartOpen();
-        } finally {
-          console.log(apiRes);
         }
     })();
 };
@@ -49,10 +48,9 @@ export const searchData=(p)=>{
             parseGeojson(mapObj,JSON.stringify(res.data));
         });
         } catch (err) {
+        } finally {
             handleAleartMessage("本機能は東京23区内のみ有効です。");
             handleAleartOpen();
-        } finally {
-          console.log(apiRes);
         }
       })();
 };
