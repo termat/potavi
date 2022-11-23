@@ -49,7 +49,7 @@ export const searchData=(p)=>{
         });
         } catch (err) {
         } finally {
-            handleAleartMessage("本機能は東京23区内のみ有効です。");
+            handleAleartMessage("経路探査は東京23区内のみ有効です。");
             handleAleartOpen();
         }
       })();
@@ -270,15 +270,15 @@ export default function Mappanel(props) {
             unit: 'metric'
             });
         map.current.addControl(scale); 
-        map.current.addControl(new LayerOnOffControl("/potavi/images/label01.png","map-label","Place name"), 'top-right');
-        map.current.addControl(new LayerOnOffControl("/potavi/images/hill01.png",'hills',"Hillshade"), 'top-right');
-        map.current.addControl(new DrawerOpenControl("/potavi/images/toggle.png","Menu"), 'top-left');
-        map.current.addControl(new HomeControl("/potavi/images/home.png","Menu"), 'top-left');
-        map.current.addControl(new FileReadControl("/potavi/images/open.png","Open"), 'top-left');
-        map.current.addControl(new DialogControl("/potavi/images/cycle.png","Data"), 'top-left');
-        map.current.addControl(new PanelControl("/potavi/images/land.png",'View',"ViewPoint"), 'top-right');
-        map.current.addControl(new RouteControl("/potavi/images/road.png",'View',"ViewPoint"), 'top-left');
-        map.current.addControl(new HelpControl("/potavi/images/help.png",'help',"Help"), 'top-left');
+        map.current.addControl(new LayerOnOffControl("/potavi/images/label01.png","map-label","地名表示"), 'top-right');
+        map.current.addControl(new LayerOnOffControl("/potavi/images/hill01.png",'hills',"ヒルシェイド"), 'top-right');
+        map.current.addControl(new DrawerOpenControl("/potavi/images/toggle.png","サイドパネル"), 'top-left');
+        map.current.addControl(new HomeControl("/potavi/images/home.png","ホーム"), 'top-left');
+        map.current.addControl(new FileReadControl("/potavi/images/open.png","データ読み込み"), 'top-left');
+        map.current.addControl(new DialogControl("/potavi/images/cycle.png","データ一覧"), 'top-left');
+        map.current.addControl(new PanelControl("/potavi/images/land.png",'操作パネル'), 'top-right');
+        map.current.addControl(new RouteControl("/potavi/images/road.png",'経路検索'), 'top-left');
+        map.current.addControl(new HelpControl("/potavi/images/help.png",'ヘルプ'), 'top-left');
         mapObj=map.current;
         mapObj.loadImage(
             '/potavi/images/camera.png',(error, image) => {

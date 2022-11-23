@@ -107,7 +107,7 @@ export class DrawerOpenControl {
   onAdd(map) {
     this.map = map;
     const homeButton = document.createElement('button');
-    homeButton.setAttribute("title","map-label");
+    homeButton.setAttribute("title","サイドメニュー");
     homeButton.innerHTML = '<img src="'+this.url+'" width="24px" aria-hidden="true"></i>';
     homeButton.addEventListener('click', (e) => {
       handleDrawerOpen();
