@@ -313,6 +313,7 @@ export default function Mappanel(props) {
             }
         });
         map.current.on("touchstart", (e)=>{
+            if(e.originalEvent.touches.length>1)return;
             flgTouch=true;
             const func=()=>{
                 if(!flgTouch)return;
