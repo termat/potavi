@@ -16,6 +16,7 @@ const BASE_URL="https://www.termat.net/";
 const photo_URL="https://www.termat.net/photo/get/bounds/"
 const image_URL="https://www.termat.net/photo/get/image/"
 const search_URL="https://www.termat.net/route/"
+//const search_URL="http://localhost:4567/route/"
 
 export const loadData=(p)=>{
     clearMarker();
