@@ -312,15 +312,27 @@ export default function Mappanel(props) {
                 marker.on("click",()=>{});
             }
         });
-        map.current.on("taphold", (e)=>{
-            const marker = new customMarker().setLngLat(e.lngLat);
-            const p=marker.getLngLat();
-            if(!list_point.has(p.lat+","+p.lng)){
-                list_point.add(p.lat+","+p.lng);
-                list_marker.add(marker);
-                marker.addTo(mapObj);
-                marker.on("click",()=>{});
-            }
+        map.current.on("touchstart", (e)=>{
+            flgTouch=true;
+            const func=()=>{
+                if(!flgTouch)return;
+                const marker = new customMarker().setLngLat(e.lngLat);
+                const p=marker.getLngLat();
+                if(!list_point.has(p.lat+","+p.lng)){
+                    list_point.add(p.lat+","+p.lng);
+                    list_marker.add(marker);
+                    marker.addTo(mapObj);
+                    marker.on("click",()=>{});
+                }
+                flgTouch=false;
+            };
+            setTimeout(func,3000);
+        });
+        map.current.on("touchend", (e)=>{
+            flgTouch=false;
+        });
+        map.current.on("touchmove", (e)=>{
+            flgTouch=false;
         });
     });
 
@@ -330,6 +342,8 @@ export default function Mappanel(props) {
         </div>
     );
 };
+
+let flgTouch=false;
 
 export const getCoord=()=>{
     let ret="";
