@@ -1,4 +1,4 @@
-import { layerOnOff } from "./Mappanel";
+import { layerOnOff,getCoord,searchData } from "./Mappanel";
 import { fileRead,frame } from "./DataLoader";
 import {handleDialogOpen,setUpPage} from './DataTableDialog'
 import { handleHelpDialogOpen } from "./HelpDialog";
@@ -182,6 +182,36 @@ export class HomeControl {
     homeButton.innerHTML = '<img src="'+this.url+'" width="24px" aria-hidden="true"></i>';
     homeButton.addEventListener('click', (e) => {
       window.location="https://termat.github.io/potavi"
+    });
+    this.container = document.createElement('div');
+    this.container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+    this.container.appendChild(homeButton);
+    return this.container;
+  }
+
+  onRemove() {
+    this.container.parentNode.removeChild(this.container);
+    this.map = undefined;
+  }
+}
+
+export class RouteControl {
+
+  constructor(url,label){
+    this.url=url;
+    this.label=label;
+  }
+
+  onAdd(map) {
+    this.map = map;
+    const homeButton = document.createElement('button');
+    homeButton.setAttribute("title",this.label);
+    homeButton.innerHTML = '<img src="'+this.url+'" width="24px" aria-hidden="true"></i>';
+    homeButton.addEventListener('click', (e) => {
+        const data=getCoord();
+        if(data.length>0){
+          searchData(data);
+        }
     });
     this.container = document.createElement('div');
     this.container.className = 'maplibregl-ctrl maplibregl-ctrl-group';

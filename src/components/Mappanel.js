@@ -3,7 +3,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import maplibregl from 'maplibre-gl';
 import './Mappanel.css';
 import { addVectorLayer,addBldgLayer } from './LayerCreator';
-import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl,HomeControl } from './MapControls';
+import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl,HomeControl,RouteControl } from './MapControls';
 import {DrawerOpenControl} from './Dashboard';
 import { parseGeojson } from './DataLoader';
 import {imagePop,imageClose} from './Imagepopup';
@@ -15,9 +15,20 @@ maplibregl.workerClass = maplibreglWorker;
 const BASE_URL="https://www.termat.net/";
 const photo_URL="https://www.termat.net/photo/get/bounds/"
 const image_URL="https://www.termat.net/photo/get/image/"
+const search_URL="https://www.termat.net/route/"
 
 export const loadData=(p)=>{
+    clearMarker();
     const url=BASE_URL+"trip/route/"+p;
+    axios.get(url)
+    .then(function (res) {
+        parseGeojson(mapObj,JSON.stringify(res.data));
+    })
+};
+
+export const searchData=(p)=>{
+    clearMarker();
+    const url=search_URL+p;
     axios.get(url)
     .then(function (res) {
         parseGeojson(mapObj,JSON.stringify(res.data));
@@ -246,6 +257,7 @@ export default function Mappanel(props) {
         map.current.addControl(new FileReadControl("/potavi/images/open.png","Open"), 'top-left');
         map.current.addControl(new DialogControl("/potavi/images/cycle.png","Data"), 'top-left');
         map.current.addControl(new PanelControl("/potavi/images/land.png",'View',"ViewPoint"), 'top-right');
+        map.current.addControl(new RouteControl("/potavi/images/road.png",'View',"ViewPoint"), 'top-left');
         map.current.addControl(new HelpControl("/potavi/images/help.png",'help',"Help"), 'top-left');
         mapObj=map.current;
         mapObj.loadImage(
@@ -270,7 +282,16 @@ export default function Mappanel(props) {
         map.current.on('move', () => {
 
         });
-
+        map.current.on('contextmenu', (e)=>{
+            const marker = new customMarker().setLngLat(e.lngLat);
+            const p=marker.getLngLat();
+            if(!list_point.has(p.lat+","+p.lng)){
+                list_point.add(p.lat+","+p.lng);
+                list_marker.add(marker);
+                marker.addTo(mapObj);
+                marker.on("click",()=>{});
+            }
+        });
     });
 
     return (
@@ -279,6 +300,42 @@ export default function Mappanel(props) {
         </div>
     );
 };
+
+export const getCoord=()=>{
+    let ret="";
+    for (let item of list_point){
+        ret=ret+item+",";
+    }
+    if(ret.length>0){
+        return ret.substring(0,ret.length-1);
+    }else{
+        return ret;
+    }
+};
+
+const list_marker=new Set();
+const list_point=new Set();
+export const clearMarker=()=>{
+    list_point.clear();
+    for (let item of list_marker){
+        item.remove();
+    }
+    list_marker.clear();
+};
+
+class customMarker extends maplibregl.Marker{
+    _onMapClick(e) {
+        const targetElement = e.originalEvent.target;
+        const element = this._element;
+        if (targetElement === element || element.contains((targetElement))) {
+            this.remove();
+            list_marker.delete(this);
+            const p=this.getLngLat();
+            list_point.delete(p.lat+","+p.lng);
+            console.log(list_point);
+          }
+    }
+}
 
 const showPop=(e)=>{
     const ll=new maplibregl.LngLat(e.features[0].geometry.coordinates[0], e.features[0].geometry.coordinates[1]);
