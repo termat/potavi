@@ -30,9 +30,9 @@ export const loadData=(p)=>{
             parseGeojson(mapObj,JSON.stringify(res.data));
         });
         } catch (err) {
-        } finally {
             handleAleartMessage("例外が発生しました。");
             handleAleartOpen();
+        } finally {
         }
     })();
 };
@@ -48,10 +48,9 @@ export const searchData=(p)=>{
             parseGeojson(mapObj,JSON.stringify(res.data));
         });
         } catch (err) {
-        } finally {
             handleAleartMessage("経路探査は東京23区内のみ有効です。");
             handleAleartOpen();
-        }
+        } finally {}
       })();
 };
 
@@ -327,7 +326,7 @@ export default function Mappanel(props) {
                 }
                 flgTouch=false;
             };
-            setTimeout(func,3000);
+            setTimeout(func,2000);
         });
         map.current.on("touchend", (e)=>{
             flgTouch=false;
