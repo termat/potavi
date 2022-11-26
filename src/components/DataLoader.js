@@ -52,7 +52,7 @@ export const frame=(time)=>{
     if (!start){
         start = time;
         prev=start;
-        if(currentMap.getZoom()<=13){
+        if(currentMap.getZoom()<=14){
             currentMap.setZoom(15);
         }
     }else{
