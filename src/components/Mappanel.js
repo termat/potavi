@@ -23,9 +23,8 @@ export const loadData=(p)=>{
     clearMarker();
     const url=BASE_URL+"trip/route/"+p;
     (async() => {
-        let apiRes = null;
         try {
-          apiRes = await axios.get(url)
+          await axios.get(url)
           .then(function (res) {
             parseGeojson(mapObj,JSON.stringify(res.data));
         });
@@ -41,9 +40,8 @@ export const searchData=(p)=>{
     clearMarker();
     const url=search_URL+p;
     (async() => {
-        let apiRes = null;
         try {
-          apiRes = await axios.get(url)
+          await axios.get(url)
           .then(function (res) {
             parseGeojson(mapObj,JSON.stringify(res.data));
         });
@@ -208,6 +206,26 @@ const agent=()=>{
     }
 }
 
+const keyDown=(e)=>{
+    if(e.keyCode===68){
+        setBearingVal(5);
+    }else if(e.keyCode===65){
+        setBearingVal(-5);
+    }else if(e.keyCode===87){
+        let zoom=getMap().getZoom();
+        zoom=Math.min(zoom+1,20)
+        setZoomVal(zoom);
+    }else if(e.keyCode===88){
+        let zoom=getMap().getZoom();
+        zoom=Math.max(zoom-1,13)
+        setZoomVal(zoom);
+    }else if(e.keyCode===69){
+        setPitchVal(2);
+    }else if(e.keyCode===81){
+        setPitchVal(-2);
+    }
+};
+
 export let setBearingVal;
 export let setBearingVal2;
 export let setPitchVal;
@@ -286,6 +304,7 @@ export default function Mappanel(props) {
             }
         );
         setNote();
+        document.addEventListener("keydown", keyDown, false);
     });
  
     useEffect(() => {
