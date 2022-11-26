@@ -46,6 +46,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 let handleDrawerOpen;
+export let handleDrawerClose;
 
 export default function Dashboard(props) {
   const theme = useTheme();
@@ -55,7 +56,7 @@ export default function Dashboard(props) {
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
+  handleDrawerClose = () => {
     setOpen(false);
   };
 
@@ -85,7 +86,7 @@ export default function Dashboard(props) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Mappanel page={props.page}/>
+        <Mappanel page={props.page} />
         <ControlBar /> 
         <ControlPad />
       </Main>

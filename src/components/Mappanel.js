@@ -4,7 +4,7 @@ import maplibregl from 'maplibre-gl';
 import './Mappanel.css';
 import { addVectorLayer,addBldgLayer } from './LayerCreator';
 import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl,HomeControl,RouteControl } from './MapControls';
-import {DrawerOpenControl} from './Dashboard';
+import {DrawerOpenControl,handleDrawerClose} from './Dashboard';
 import { parseGeojson } from './DataLoader';
 import {imagePop,imageClose} from './Imagepopup';
 import { getLayerState } from './MenuList';
@@ -319,6 +319,9 @@ export default function Mappanel(props) {
         });
         map.current.on('move', () => {
 
+        });
+        map.current.on('click', (e)=>{
+            handleDrawerClose();
         });
         map.current.on('contextmenu', (e)=>{
             const marker = new customMarker().setLngLat(e.lngLat);
