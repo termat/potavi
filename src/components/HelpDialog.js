@@ -66,7 +66,9 @@ export default function DataTableDialog(props) {
           <h1 style={{margin: "8px"}}>Potavi ： ポタリングした地域を3D地図で俯瞰するWebアプリです。</h1>
           <p style={{fontSize: "20px",margin: "8px"}}>自転車走行記録（GPSログ）を可視化し、ポタリング（自転車散歩）した地域を俯瞰して楽しむWebアプリです。<br />
             地域を俯瞰して振り返ることで新たな発見を促します。<br />
-            また、サイクリングルートや地域の紹介に活用することで、サイクルツーリズムを支援します。<br /><br />
+            また、サイクリングルートや地域の紹介に活用することで、サイクルツーリズムを支援します。<br />
+            <a href="/potavi/info.html" rel="noreferrer" target="_blank" style={{color:"#000"}}>Potavi操作説明ページ</a>
+            <br />
             <a href="https://github.com/termat/potavi" rel="noreferrer" target="_blank" style={{fontSize: "14px"}}><img width="60" alt={'top'} src={`${process.env.PUBLIC_URL}/images/GitHub_Logo.png`} /></a>
             </p>
             <hr />
