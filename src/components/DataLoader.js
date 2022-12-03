@@ -1,6 +1,6 @@
 import * as turf from '@turf/turf';
 import {setSlider,endRunning} from './ControlBar';
-import { addPhoto} from './Mappanel';
+import { addPhoto,addAccPoint} from './Mappanel';
 import {getMemory} from './TabLeft';
 
 let gpxParser = require('gpxparser');
@@ -242,4 +242,10 @@ const fitBounds=(map,targetRoute)=>{
         map.removeSource('photo');
     }
     addPhoto(map,xmin,xmax,ymin,ymax);
+
+    if(map.getSource('acc')){
+        map.removeLayer('accid');
+        map.removeSource('acc');
+    }
+    addAccPoint(map,xmin,xmax,ymin,ymax);
 };

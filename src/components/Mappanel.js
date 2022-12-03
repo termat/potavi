@@ -3,7 +3,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import maplibregl from 'maplibre-gl';
 import './Mappanel.css';
 import { addVectorLayer,addBldgLayer } from './LayerCreator';
-import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl,HomeControl,RouteControl } from './MapControls';
+import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl,RouteControl } from './MapControls';
 import {DrawerOpenControl,handleDrawerClose} from './Dashboard';
 import { parseGeojson } from './DataLoader';
 import {imagePop,imageClose} from './Imagepopup';
@@ -17,6 +17,7 @@ const BASE_URL="https://www.termat.net/";
 const photo_URL="https://www.termat.net/photo/get/bounds/"
 const image_URL="https://www.termat.net/photo/get/image/"
 const search_URL="https://www.termat.net/route/"
+const point_URL="http://localhost:4567/point/get/acc/"
 //const search_URL="http://localhost:4567/route/"
 
 export const loadData=(p)=>{
@@ -275,7 +276,7 @@ export default function Mappanel(props) {
             localIdeographFontFamily: false,
         });
         map.current.addControl(new maplibregl.FullscreenControl());
-        map.current.addControl(new maplibregl.NavigationControl({visualizePitch: true}));
+        map.current.addControl(new maplibregl.NavigationControl({showZoom:false,isualizePitch: true}));
         map.current.addControl(new maplibregl.GeolocateControl({
             positionOptions: {
             enableHighAccuracy: true
@@ -290,7 +291,7 @@ export default function Mappanel(props) {
         map.current.addControl(new LayerOnOffControl("/potavi/images/label01.png","map-label","地名表示"), 'top-right');
         map.current.addControl(new LayerOnOffControl("/potavi/images/hill01.png",'hills',"ヒルシェイド"), 'top-right');
         map.current.addControl(new DrawerOpenControl("/potavi/images/toggle.png","サイドパネル"), 'top-left');
-        map.current.addControl(new HomeControl("/potavi/images/home.png","ホーム"), 'top-left');
+//        map.current.addControl(new HomeControl("/potavi/images/home.png","ホーム"), 'top-left');
         map.current.addControl(new FileReadControl("/potavi/images/open.png","データ読み込み"), 'top-left');
         map.current.addControl(new DialogControl("/potavi/images/cycle.png","データ一覧"), 'top-left');
         map.current.addControl(new PanelControl("/potavi/images/land.png",'操作パネル'), 'top-right');
@@ -463,11 +464,41 @@ export const addPhoto=(map,xmin,xmax,ymin,ymax)=>{
                 "text-halo-blur": 1
             }
         });
-
         map.on('touchstart', 'photoId', function(e){showPop(e);});
         map.on('mouseenter', 'photoId', function(e){showPop(e);});
     });
 };
+
+export const addAccPoint=(map,xmin,xmax,ymin,ymax)=>{
+    const url=point_URL+xmin+"/"+ymin+"/"+(xmax-xmin)+"/"+(ymax-ymin);
+    axios.get(url)
+    .then(function (res) {
+        map.addSource('acc', {
+            'type': 'geojson',
+            'data': res.data
+        });
+        map.addLayer({
+            'id': 'accid',
+            'source': 'acc',
+            'type': 'circle',
+            'layout': {},
+            'paint': {
+                'circle-color': '#FF0099',
+                'circle-opacity':0.5,
+                'circle-radius': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    10, 1,
+                    12, 2,
+                    14, 5,
+                    18 ,10,
+                    20, 25
+              ]
+            }
+        });
+    });
+}
 
 export const setNote=()=>{
     mapObj.on("mousemove",noteListener);

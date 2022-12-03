@@ -18,11 +18,11 @@ export const Child = () => {
   const arg=getArg(location.search);
   if(arg["p"]){
     return (
-      <Dashboard page={arg["p"]} />
+      <Dashboard page={arg["p"]} help={false} />
     )
   }else{
     return (
-      <Dashboard />
+      <Dashboard help={true} />
     )
   }
 }

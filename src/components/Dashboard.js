@@ -92,7 +92,7 @@ export default function Dashboard(props) {
       </Main>
       <Imagepopup />
       <DataTableDialog />
-      <HelpDialog />
+      <HelpDialog open={props.help} />
       <AlertDialog />
     </Box>
   );

@@ -34,7 +34,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function DataTableDialog(props) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(props.open);
 
   handleHelpDialogOpen = () => {
     setOpen(true);
@@ -67,7 +67,8 @@ export default function DataTableDialog(props) {
           <p style={{fontSize: "20px",margin: "8px"}}>自転車走行記録（GPSログ）を可視化し、ポタリング（自転車散歩）した地域を俯瞰して楽しむWebアプリです。<br />
             地域を俯瞰して振り返ることで新たな発見を促します。<br />
             また、サイクリングルートや地域の紹介に活用することで、サイクルツーリズムを支援します。<br />
-            <a href="/potavi/info.html" rel="noreferrer" target="_blank" style={{color:"#000"}}>Potavi操作説明ページ</a>
+            <Button variant="contained" style={{margin:"10px"}} size="large" onClick={handleDialogClose}>　開　始　</Button>
+            <Button variant="contained" style={{margin:"10px"}} size="large" target="_blank" component="a" href="/potavi/info.html">説明ページ</Button>
             <br />
             <a href="https://github.com/termat/potavi" rel="noreferrer" target="_blank" style={{fontSize: "14px"}}><img width="60" alt={'top'} src={`${process.env.PUBLIC_URL}/images/GitHub_Logo.png`} /></a>
             </p>
