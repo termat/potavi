@@ -63,8 +63,8 @@ export default function DataTableDialog(props) {
         <div style={{marginTop:60}}>
           <img src={`${process.env.PUBLIC_URL}/images/back2.jpg`} style={img_style} alt={'top'} />
           <Box textAlign="center">
-          <h1 style={{margin: "8px"}}>Potavi ： ポタリングした地域を3D地図で俯瞰するWebアプリです。</h1>
-          <p style={{fontSize: "18px",margin: "8px"}}>自転車走行記録(GPSログ)を可視化し、ポタリング(自転車散歩)した地域を俯瞰して眺めるWebアプリです。<br />
+          <h1 style={{margin: "6px"}}>Potavi ： ポタリングした地域を3D地図で俯瞰するWebアプリです。</h1>
+          <p style={{fontSize: "18px",margin: "6px"}}>自転車走行記録(GPSログ)を可視化し、ポタリング(自転車散歩)した地域を俯瞰して眺めるWebアプリです。<br />
             地域を俯瞰映像で振り返ることで新たな発見を促します。<br />
             また、ルート紹介に利用するで、サイクルツーリズムの推進に活用できます。<br />
             <Button variant="contained" style={{margin:"10px"}} size="large" onClick={handleDialogClose}>　開　始　</Button>
