@@ -89,8 +89,8 @@ export default function ControlPad(){
             <Button variant="contained" color="warning" style={{width:"80px"}} onMouseDown={rePress} onMouseUp={release} onTouchStart={rePress} onTouchEnd={release}>RIGHT</Button>
             </Stack>
             <Stack direction="row" spacing={1}>
-            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={speedChangeUp}>∧</Button>
-            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={speedChangeDn}>∨</Button>
+            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={speedChangeUp}>速</Button>
+            <Button variant="contained" color="success" style={{width:"35px",minWidth:"35px"}} onClick={speedChangeDn}>遅</Button>
             <Button variant="contained" color="secondary" style={{width:"35px",minWidth:"35px"}} onClick={zoomChangeUp}>＋</Button>
             <Button variant="contained" color="secondary" style={{width:"35px",minWidth:"35px"}} onClick={zoomChangeDn}>－</Button>
             </Stack>
