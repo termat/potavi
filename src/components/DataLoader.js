@@ -241,7 +241,7 @@ const fitBounds=(map,targetRoute)=>{
         map.removeLayer('photoId');
         map.removeSource('photo');
     }
-    addPhoto(map,xmin,xmax,ymin,ymax);
+    addPhoto(map,xmin-0.005,xmax+0.005,ymin-0.005,ymax+0.005);
 
     if(map.getSource('acc')){
         map.removeLayer('accid');
