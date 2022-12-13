@@ -3,6 +3,7 @@ import { fileRead,frame } from "./DataLoader";
 import {handleDialogOpen,setUpPage} from './DataTableDialog'
 import { handleHelpDialogOpen } from "./HelpDialog";
 import { showPanel } from "./ControlPad";
+import { getElevations } from "./DataLoader";
 
 export class LayerOnOffControl {
 
@@ -211,6 +212,9 @@ export class RouteControl {
         const data=getCoord();
         if(data.length>0){
           searchData(data);
+        }else{
+          let data=getElevations();
+          console.log(data);
         }
     });
     this.container = document.createElement('div');

@@ -7,7 +7,6 @@ let gpxParser = require('gpxparser');
 let tcxParse = require('tcx');
 var DOMParser = require('xmldom').DOMParser;
 
-
 let currentMap;
 export let targetRoute;
 let routeDistance;
@@ -42,6 +41,46 @@ export const stop=()=>{
         cancelAnimationFrame(runAni);
         start=null;
     }
+};
+
+const getElevationOnTerrain=(map,lnglat)=>{
+    let terrain = map.style.terrain;
+     if(terrain) {
+        return map.transform.getElevation(lnglat, terrain) - terrain.elevationOffset * terrain.exaggeration;
+    }
+    return 0;
+}
+
+const trans=(h)=>{
+    let box = Math.round(10 * (h + 10000)).toString(16)
+    let boxr = parseInt(box.slice(-6, -4), 16)
+    let boxg = parseInt(box.slice(-4, -2), 16)
+    let boxb = parseInt(box.slice(-2), 16)
+    let x=boxr*65536+boxg*256+boxb;
+    if(x<8388608){
+        return x*0.01;
+    }else if(x>8388608){
+        return 0.01*(x-16777216);
+    }else{
+        return 0;
+    }
+}
+
+export const getElevations=()=>{
+    const ret=[];
+    if(!targetRoute)return ret;
+	const line = turf.lineString(targetRoute);
+	const options = {units: 'kilometers'};
+	const length = turf.length(line, options);
+    let ml=0;
+
+    while(length>ml){
+        let along = turf.along(line, ml, options);
+		const elevation = getElevationOnTerrain(currentMap,along.geometry.coordinates);
+         ret.push({"x":ml,"y":elevation});
+		ml=ml+0.05;
+    }
+    return ret;
 };
 
 let fps = 1000 / 24;

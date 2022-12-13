@@ -14,10 +14,10 @@ import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker';
 maplibregl.workerClass = maplibreglWorker;
 
 const BASE_URL="https://www.termat.net/";
-const photo_URL="https://www.termat.net/photo/get/bounds/"
-const image_URL="https://www.termat.net/photo/get/image/"
-const search_URL="https://www.termat.net/route/"
-const point_URL="http://localhost:4567/point/get/acc/"
+const photo_URL="https://www.termat.net/photo/get/bounds/";
+const image_URL="https://www.termat.net/photo/get/image/";
+const search_URL="https://www.termat.net/route/";
+const point_URL="http://localhost:4567/point/get/acc/";
 //const search_URL="http://localhost:4567/route/"
 
 export const loadData=(p)=>{
@@ -78,7 +78,6 @@ const TILES={
             type: 'raster-dem',
             tiles: [
                 'gsidem://https://cyberjapandata.gsi.go.jp/xyz/dem_png/{z}/{x}/{y}.png',
-//                'gsidem://platr/dsm/{z}/{x}/{y}.png',
             ],
             tileSize: 256,
             maxzoom: 14,
@@ -162,7 +161,7 @@ maplibregl.addProtocol('gsidem', (params, callback) => {
 
 let mapObj;
 export const jumpTo=(data)=>{
-    mapObj.setPitch(30);
+//    setPitchVal2(30);
     mapObj.fitBounds([
         [data[0]-0.005, data[1]-0.005],
         [data[0]+0.005, data[1]+0.005]
@@ -230,6 +229,7 @@ const keyDown=(e)=>{
 export let setBearingVal;
 export let setBearingVal2;
 export let setPitchVal;
+export let setPitchVal2;
 export let setZoomVal;
 
 export default function Mappanel(props) {
@@ -253,6 +253,11 @@ export default function Mappanel(props) {
 
     setPitchVal=(v)=>{
         setPitch(Math.min(Math.max(pitch+v,0),70));
+        mapObj.setPitch(pitch);
+    };
+
+    setPitchVal2=(v)=>{
+        setPitch(v);
         mapObj.setPitch(pitch);
     };
 
@@ -291,7 +296,6 @@ export default function Mappanel(props) {
         map.current.addControl(new LayerOnOffControl("/potavi/images/label01.png","map-label","地名表示"), 'top-right');
         map.current.addControl(new LayerOnOffControl("/potavi/images/hill01.png",'hills',"ヒルシェイド"), 'top-right');
         map.current.addControl(new DrawerOpenControl("/potavi/images/toggle.png","サイドパネル"), 'top-left');
-//        map.current.addControl(new HomeControl("/potavi/images/home.png","ホーム"), 'top-left');
         map.current.addControl(new FileReadControl("/potavi/images/open.png","データ読み込み"), 'top-left');
         map.current.addControl(new DialogControl("/potavi/images/cycle.png","データ一覧"), 'top-left');
         map.current.addControl(new PanelControl("/potavi/images/land.png",'操作パネル'), 'top-right');
