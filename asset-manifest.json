@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/potavi/static/css/main.f146b701.css",
-    "main.js": "/potavi/static/js/main.58da72d8.js",
+    "main.js": "/potavi/static/js/main.49d45f6b.js",
     "static/js/787.72ec3843.chunk.js": "/potavi/static/js/787.72ec3843.chunk.js",
     "index.html": "/potavi/index.html",
     "main.f146b701.css.map": "/potavi/static/css/main.f146b701.css.map",
-    "main.58da72d8.js.map": "/potavi/static/js/main.58da72d8.js.map",
+    "main.49d45f6b.js.map": "/potavi/static/js/main.49d45f6b.js.map",
     "787.72ec3843.chunk.js.map": "/potavi/static/js/787.72ec3843.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f146b701.css",
-    "static/js/main.58da72d8.js"
+    "static/js/main.49d45f6b.js"
   ]
 }
