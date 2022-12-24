@@ -98,6 +98,16 @@ const TILES={
             paint: { 'hillshade-shadow-color': '#473B24' }
         },
         {
+            "id": "vector-water",
+            "type": "fill",
+            "source": "vector",
+            "source-layer": "waterarea",
+            "paint": {
+                    'fill-opacity': 0.25,
+                    'fill-color': 'rgb(0, 128, 255)',
+                }
+        },
+        {
             "id": "vector-road",
             "type": "line",
             "source": "vector",
@@ -125,16 +135,6 @@ const TILES={
                             14,4.0,
                             15,6.0,
                             16,8.0],
-                }
-        },
-        {
-            "id": "vector-water",
-            "type": "fill",
-            "source": "vector",
-            "source-layer": "waterarea",
-            "paint": {
-                    'fill-opacity': 0.25,
-                    'fill-color': 'rgb(0, 128, 255)',
                 }
         },
         {
