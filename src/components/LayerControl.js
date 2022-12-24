@@ -22,12 +22,12 @@ export default function LayerControl(props) {
             props.layerId.forEach(function(elem){
                 map.setLayoutProperty(elem, 'visibility', 'visible');
                 setState(elem,e.target.checked);
-             });
+            });
         }else{
             props.layerId.forEach(function(elem){
                 map.setLayoutProperty(elem, 'visibility', 'none');
                 setState(elem,e.target.checked);
-             });
+            });
         }
     }
 

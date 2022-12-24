@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import maplibregl from 'maplibre-gl';
 import './Mappanel.css';
-import { addVectorLayer,addBldgLayer } from './LayerCreator';
+import { addVectorLayer } from './LayerCreator';
 import { LayerOnOffControl,FileReadControl,DialogControl,HelpControl,PanelControl,RouteControl } from './MapControls';
 import {DrawerOpenControl,handleDrawerClose} from './Dashboard';
 import { parseGeojson } from './DataLoader';
@@ -65,13 +65,14 @@ const TILES={
             maxzoom: 18,
             attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
         },
-        plat: {
-            type: 'raster',
+        vector:{
+            type: "vector",
             tiles: [
-                'https://gic-plateau.s3.ap-northeast-1.amazonaws.com/2020/ortho/tiles/{z}/{x}/{y}.png',
+//                "https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf"
+                "https://www.termat.net/tile/{z}/{x}/{y}"
             ],
-            minzoom: 18,
-            maxzoom: 19,
+            minzoom:6,
+            maxzoom:16,
             attribution: '<a href="https://www.mlit.go.jp/plateau/">国土交通省Project PLATEAU</a>'
         },
         gsidem: {
@@ -95,12 +96,138 @@ const TILES={
             source: 'gsidem',
             layout: { visibility: 'visible' },
             paint: { 'hillshade-shadow-color': '#473B24' }
+        },
+        {
+            "id": "vector-road",
+            "type": "line",
+            "source": "vector",
+            "source-layer": "road",
+            "paint": {
+                    'line-opacity': 1.0,
+                    'line-color': 'rgb(180, 180, 180)',
+                    'line-width': 2
+                }
+        },
+        {
+            "id": "vector-rail",
+            "type": "line",
+            "source": "vector",
+            "source-layer": "railway",
+            "paint": {
+                    'line-opacity': 0.8,
+                    'line-color': '#ffaaaa',
+                    'line-width': [
+                        'interpolate',
+                        ['linear'],
+                        ["zoom"],
+                            10,1.0,
+                            13,2.0,
+                            14,4.0,
+                            15,6.0,
+                            16,8.0],
+                }
+        },
+        {
+            "id": "vector-water",
+            "type": "fill",
+            "source": "vector",
+            "source-layer": "waterarea",
+            "paint": {
+                    'fill-opacity': 0.25,
+                    'fill-color': 'rgb(0, 128, 255)',
+                }
+        },
+        {
+            "id": "vector-bldg",
+            "type": "fill-extrusion",
+            "source": "vector",
+            "source-layer": "building",
+            "paint": {
+                "fill-extrusion-height":[
+                    "max",
+                    ["to-number",["get", "h"]],
+                    [
+                        'interpolate',
+                        ['linear'],
+                        ["get", "ftCode"],
+                            3101,8.0,
+                            3102,16.0,
+                            3103,32.0,
+                            3111,4.0,
+                            3112,8.0
+                    ]
+                ],
+                "fill-extrusion-color": [
+                    'interpolate',
+                    ['linear'],
+                    [
+                        "max",
+                        ["to-number",["get", "h"]],
+                        [
+                            'interpolate',
+                            ['linear'],
+                            ["get", "ftCode"],
+                                3101,8.0,
+                                3102,16.0,
+                                3103,32.0,
+                                3111,4.0,
+                                3112,8.0
+                        ]
+                    ],
+                    0,'#333344',
+                    4,'#444455',
+                    8,'#555566',
+                    16,'#666688',
+                    32,'#777799',
+                    64,'#8888aa',
+                    128,'#9999bb',
+                    256,'#aaaacc'],
+                'fill-extrusion-opacity': 0.9
+            }
+        },
+        {
+            "id": "vector-brid",
+            "type": "fill-extrusion",
+            "source": "vector",
+            "source-layer": "BRIDGE",
+            "paint": {
+                "fill-extrusion-height":["get", "h"],
+                "fill-extrusion-color": "#aaaacc",
+                'fill-extrusion-opacity': 0.9
+            }
+        },
+        {
+            "id": "vector-label",
+            "type": "symbol",
+            "source": "vector",
+            "source-layer": "label",
+            "layout": {
+                'text-size': 12,
+                "text-rotate":["case",["==",["get","arrng"],2],["*",["+",["to-number",["get","arrngAgl"]],90],-1],["*",["to-number",["get","arrngAgl"]],-1]],
+                "text-field":["get","knj"],
+                "text-font":["NotoSansCJKjp-Regular"],
+                "text-allow-overlap": true,
+                "text-keep-upright":true,
+                "text-allow-overlap":false, // eslint-disable-line
+                "symbol-z-order":"auto",
+                "text-max-width":60,
+                'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+                'text-justify': 'auto',
+                "symbol-placement": "point"
+            },
+            "paint": {
+                "text-color": "black",
+                "text-opacity": 1.0,
+                "text-halo-color": "rgba(255,255,255,0.95)",
+                "text-halo-width": 1.5,
+                "text-halo-blur": 1
+            }
         }
     ],
     terrain: {
         source: 'gsidem',
         exaggeration: 1.2,
-    },
+    }
 };
 
 const gsidem2terrainrgb = (r, g, b) => {
@@ -169,7 +296,7 @@ export const jumpTo=(data)=>{
 };
 
 const initLayer=()=>{
-    const tmp=["bldg","bridge","bldg-lod0","mvt-road","vector-road","vector-rail","vector-water","mvt-pad","dis-land","dis-tsunami"];
+    const tmp=["vector-bldg","vector-road","vector-rail","vector-water","mvt-pad","dis-land","dis-tsunami"];
     tmp.forEach(function(id){
         if(getLayerState(id)){
             mapObj.setLayoutProperty(id,'visibility','visible');
@@ -293,8 +420,7 @@ export default function Mappanel(props) {
             unit: 'metric'
             });
         map.current.addControl(scale); 
-        map.current.addControl(new LayerOnOffControl("/potavi/images/label01.png","map-label","地名表示"), 'top-right');
-        map.current.addControl(new LayerOnOffControl("/potavi/images/hill01.png",'hills',"ヒルシェイド"), 'top-right');
+        map.current.addControl(new LayerOnOffControl("/potavi/images/label01.png","vector-label","地名表示"), 'top-right');
         map.current.addControl(new DrawerOpenControl("/potavi/images/toggle.png","サイドパネル"), 'top-left');
         map.current.addControl(new FileReadControl("/potavi/images/open.png","データ読み込み"), 'top-left');
         map.current.addControl(new DialogControl("/potavi/images/cycle.png","データ一覧"), 'top-left');
@@ -315,7 +441,6 @@ export default function Mappanel(props) {
     useEffect(() => {
         if (!map.current) return; // wait for map to initialize
         map.current.on('load',()=>{
-            addBldgLayer(map.current);
             addVectorLayer(map.current);
             if(props.page){
                 setTimeout(loadData(props.page),1000);

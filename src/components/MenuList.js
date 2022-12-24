@@ -18,9 +18,7 @@ export default function MenuList() {
     return (
         <div>
         <Box sx={{ lineHeight: 1,fontSize: 'small' }}>
-        <LayerControl width={180} checked={getLayerState("bldg")} title={"建物LOD"} layerId={["bldg","bridge"]} opacity={90} type={'fill-extrusion-opacity'} />
-        <LayerControl width={180} checked={getLayerState("bldg-lod0")} title={"建物MVT"} layerId={["bldg-lod0"]} opacity={90} type={'fill-extrusion-opacity'} />
-        <LayerControl width={180} checked={getLayerState("mvt-road")} title={"道路面"} layerId={["mvt-road"]} opacity={70} type={'fill-opacity'} />
+        <LayerControl width={180} checked={getLayerState("vector-bldg")} title={"建物"} layerId={["vector-bldg","vector-brid"]} opacity={90} type={'fill-extrusion-opacity'} />
         <LayerControl width={180} checked={getLayerState("vector-road")} title={"道路線"} layerId={["vector-road"]} opacity={100} type={'line-opacity'} />
         <LayerControl width={180} checked={getLayerState("vector-rail")} title={"鉄道"} layerId={["vector-rail"]} opacity={80} type={'line-opacity'} />
         <LayerControl width={180} checked={getLayerState("vector-water")} title={"水域"} layerId={["vector-water"]} opacity={25} type={'fill-opacity'} />
