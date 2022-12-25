@@ -36,7 +36,8 @@ export const createTile3DLayer=(url)=>{
   };
 
 export const addVectorLayer=(mapobj)=>{
-     if (!mapobj.getSource('mvt_fude')){
+    mapobj.setLayoutProperty('vector-label', 'visibility', 'visible');
+    if (!mapobj.getSource('mvt_fude')){
         mapobj.addSource("mvt_fude", MVT_FUDE);
         mapobj.addLayer({
             "id": "mvt-pad",
